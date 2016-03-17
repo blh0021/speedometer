@@ -5,11 +5,9 @@
         A simple speedometer mobile app.
     </description>
     <author email="ben@harringtonweb.com" href="http://www.benharrington.com/">
-       
+
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <plugin name="Geolocation" value="CDVLocation" />
-    <plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
     <icon src="icon.png" />
 </widget>
