@@ -1,44 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Device Properties Example</title>
 
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    <script type="text/javascript" charset="utf-8">
+<head>
+  <title>Device Properties Example</title>
 
-      document.addEventListener("deviceready", onDeviceReady, false);
+  <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    document.addEventListener("deviceready", onDeviceReady, false);
 
-      function onDeviceReady() {
-        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    function onDeviceReady() {
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    };
+
+    function onError(error) {
+      alert('code: ' + error.code + '\n' +
+        'message: ' + error.message + '\n');
+    };
+
+
+
+    window.onload = function() {
+
+      function onSuccess(position) {
+        document.getElementById('speed').innerHTML = position.coords.speed * 2.23694;
+        document.getElementById('altitude').innerHTML = position.coords.altitude * 3.28084;
+        document.getElementById('heading').innerHTML = position.coords.heading || 0;
       };
 
-function onError(error) {
-  alert('code: '    + error.code    + '\n' +
-      'message: ' + error.message + '\n');
-};
+      var watchID = navigator.geolocation.watchPosition(onSuccess, onError, {
+        timeout: 30000,
+        enableHighAccuracy: true
+      });
 
-
-
-window.onload = function(){
-
-  function onSuccess(position) {
-    document.getElementById('speed').innerHTML = position.coords.speed * 2.23694;
-    document.getElementById('altitude').innerHTML = position.coords.altitude * 3.28084;
-    document.getElementById('heading').innerHTML = position.coords.heading;
-  };
-
-  var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000, enableHighAccuracy:true });
-
-}
-</script>
+    }
+  </script>
 </head>
+
 <body style="background-color: #111; ">
   <center>
-  <br><br>
-  <h1 id="speed" style="color: lightgreen; text-align: center;">0</h1>
-  <h1 style="color: lightgreen; text-align: center;">MPH</h1>
-  <p style="color: lightgreen; text-align: center;">Altitude: <span id="altitude">0</span></p>
-  <p style="color: lightgreen; text-align: center;">Heading: <span id="heading">0</span></p>
-</center>
+    <br>
+    <br>
+    <h1 id="speed" style="color: lightgreen; text-align: center;">0</h1>
+    <h1 style="color: lightgreen; text-align: center;">MPH</h1>
+    <p style="color: lightgreen; text-align: center;">Altitude: <span id="altitude">0</span>ft</p>
+    <p style="color: lightgreen; text-align: center;">Heading: <span id="heading">0</span></p>
+  </center>
 </body>
+
 </html>
